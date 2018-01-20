@@ -4,47 +4,77 @@
 #include "windows.h"
 #include <iostream>
 
-using namespace std;
-
-//BOOL CALLBACK EnumWindowsProc(HWND hwnd,LPARAM lParam);
-
-BOOL CALLBACK EnumWindowsProc(
-    HWND hwnd,  // handle to parent window
-    LPARAM lParam   // application-defined value
-   );
-
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
-    EnumWindows((WNDENUMPROC)EnumWindowsProc,(LPARAM)NULL);
-        //Sleep(1000);
-
     ui->setupUi(this);
 
+    //***********************************************************************************
+    // для клавиатуры
+    //***********************************************************************************
+
+    keyboardThread = new QThread(this);
+    connect(this, SIGNAL(destroyed(QObject*)), keyboardThread, SLOT(quit()));
+    connect(this, SIGNAL(destroyed(QObject*)), keyboardThread, SLOT(deleteLater()));
+    keyboardElement = new keyboard();
+    keyboardElement->resetCountKeyPressed();
+    connect(this, SIGNAL(startSession()), keyboardElement, SLOT(runCount()));
+    keyboardElement->moveToThread(keyboardThread);
+    keyboardThread->start();
+
+    //***********************************************************************************
+    // для мыши
+    //***********************************************************************************
+
+    mouseThread = new QThread(this);
+    connect(this, SIGNAL(destroyed(QObject*)), mouseThread, SLOT(quit()));
+    mouseElement = new mouse();
+    //connect(this, SIGNAL(startSession()), mouseElement, SLOT(runCount()));
+    mouseElement->moveToThread(mouseThread);
+    mouseThread->start();
+
+    //***********************************************************************************
+    // для окон приложений
+    //***********************************************************************************
+
+    windowProcThread = new QThread(this);
+    connect(this, SIGNAL(destroyed(QObject*)), windowProcThread, SLOT(quit()));
+    windowProcElement = new windowProc();
+    connect(this, SIGNAL(startSession()), windowProcElement, SLOT(runCount()));
+    windowProcElement->moveToThread(windowProcThread);
+    windowProcThread->start();
+
+    //***********************************************************************************
+    // таймер новой сессии
+    //***********************************************************************************
+
+    timerSession = new QTimer(this);
+    connect(timerSession, SIGNAL(timeout()), this, SLOT(timerSessionSlot()));
+    //timerSession->start(10000);
+
+    emit startSession();
 }
 
 MainWindow::~MainWindow()
 {
+    keyboardElement->work = false;
+    keyboardThread->exit(0);
+    keyboardThread->deleteLater();
+    keyboardThread->wait(2000);
+    /*mouseThread->quit();
+    mouseThread->wait();
+    windowProcThread->quit();
+    windowProcThread->wait();*/
     delete ui;
 }
 
-
-BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lp)
+void MainWindow::timerSessionSlot()
 {
-    if (IsWindowVisible(hwnd))
-    {
-        char str[255];
-        DWORD procId = NULL;
-        GetWindowText(hwnd,(LPWSTR)str,100);
-        GetWindowThreadProcessId(hwnd, &procId);
-        cout << str << endl;
-        cout << "Process -> " << procId << endl;
-        MessageBox(hwnd,(LPCWSTR)str,(LPCWSTR)"123",MB_ICONINFORMATION);
-    }
-    return true;
+    ui->lineEditKeyPressedCount->setText(QString::number(keyboardElement->getCountKeyPressed()));
+    keyboardElement->resetCountKeyPressed();
 }
+
 
 

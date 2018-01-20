@@ -13,8 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    keyboard.cpp \
+    mouse.cpp \
+    windowproc.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    keyboard.h \
+    mouse.h \
+    windowproc.h
 
 FORMS    += mainwindow.ui
