@@ -37,9 +37,11 @@ private:
 
 private slots:
     void timerSessionSlot();
+    void stopSessionSlot();
 
 signals:
     void startSession();
+    void stopSession();
 
 };
 

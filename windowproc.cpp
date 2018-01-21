@@ -11,12 +11,21 @@ BOOL EnumWindowsProc(
 
 windowProc::windowProc(QObject *parent) : QObject(parent)
 {
-
+    wchar_t Buff[255], NameOfClass[255];
+    HWND hWnd;
+    hWnd == GetDesktopWindow();
+    GetWindowText(hWnd, Buff, 254);
+    GetClassName(hWnd, NameOfClass, 254);
+    qDebug() << QString::fromWCharArray(Buff) <<  QString::fromWCharArray(NameOfClass);
 }
 
 void windowProc::runCount()
 {
     EnumWindows((WNDENUMPROC)EnumWindowsProc, (LPARAM)this);
+}
+
+void windowProc::stopCount()
+{
 }
 
 
@@ -27,21 +36,19 @@ BOOL EnumWindowsProc(HWND hWnd, LPARAM lp)
     {
         wchar_t Buff[255], NameOfClass[255];
         GetWindowText(hWnd, Buff, 254);
-        GetClassName(hWnd, NameOfClass, 254);
-        qDebug() << QString::fromWCharArray(Buff) << "     " << QString::fromWCharArray(NameOfClass);
+        if (QString::fromWCharArray(Buff) != "")
+        {
+            QString strInfo;
+            strInfo = QString::fromWCharArray(Buff) + "   ";
+            GetClassName(hWnd, NameOfClass, 254);
+            strInfo += QString::fromWCharArray(NameOfClass) + "   ";
+            if (hWnd == GetActiveWindow())
+                strInfo += "Focused";
+            else
+                strInfo += "Unfocused";
+            //qDebug() << strInfo;
+        }
     }
-
-   /* if (IsWindowVisible(hWnd))
-    {
-        WCHAR str[255];
-        DWORD procId = NULL;
-        GetWindowText(hWnd,str,100);
-        GetWindowThreadProcessId(hWnd, &procId);
-        qDebug() << QString::fromWCharArray(str);
-        //cout << str << endl;
-        //cout << "Process -> " << procId << endl;
-        //MessageBox(hWnd,(LPCWSTR)str,(LPCWSTR)"123",MB_ICONINFORMATION);
-    }*/
     return true;
 }
 

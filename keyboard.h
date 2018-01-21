@@ -9,19 +9,19 @@ class keyboard : public QObject
 public:
     explicit keyboard(QObject *parent = 0);
 
+    long long getCountKeyPressed() {return countKeyPressed;}
+    void resetCountKeyPressed() {countKeyPressed = 0;}
+
 private:
     long long countKeyPressed;
-
-public:
-    int getCountKeyPressed() {return countKeyPressed;}
-    void resetCountKeyPressed() {countKeyPressed = 0;}
-    bool work;
+    bool workFlag;
 
 signals:
     void keyPressed();                      // если была нажата клавиша
 
 public slots:
     void runCount();                        // запуск обработчика нажатия
+    void stopCount();                       // остановка подсчета
 };
 
 #endif // KEYBOARD_H

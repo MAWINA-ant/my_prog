@@ -11,10 +11,14 @@ class windowProc : public QObject
 public:
     explicit windowProc(QObject *parent = 0);
 
+private:
+    QStringList listWindowsInfo;
+
 signals:
 
 public slots:
-    void runCount();
+    void runCount();                        // запуск посчета открытых окон
+    void stopCount();                       // остановка подсчета
 };
 
 #endif // WINDOWPROC_H
