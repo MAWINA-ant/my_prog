@@ -24,6 +24,8 @@ public:
 private:
     Ui::MainWindow *ui;
 
+    unsigned int numberOfSession;
+
     QThread *windowProcThread;              // поток в котором фиксируются все открытые окна Windows
     windowProc *windowProcElement;          // элемент класса обработки окон
 
@@ -38,6 +40,7 @@ private:
 private slots:
     void timerSessionSlot();
     void stopSessionSlot();
+    void updateTableWidgetWindowsInfo(QStringList);
 
 signals:
     void startSession();

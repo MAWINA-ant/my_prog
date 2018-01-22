@@ -1,6 +1,5 @@
 #include "windowproc.h"
 
-
 using namespace std;
 
 BOOL EnumWindowsProc(
@@ -8,15 +7,11 @@ BOOL EnumWindowsProc(
     LPARAM lParam               // application-defined value
    );
 
+QStringList listWindowsInfo;   // список с информацией об окнах
 
 windowProc::windowProc(QObject *parent) : QObject(parent)
 {
-    wchar_t Buff[255], NameOfClass[255];
-    HWND hWnd;
-    hWnd == GetDesktopWindow();
-    GetWindowText(hWnd, Buff, 254);
-    GetClassName(hWnd, NameOfClass, 254);
-    qDebug() << QString::fromWCharArray(Buff) <<  QString::fromWCharArray(NameOfClass);
+
 }
 
 void windowProc::runCount()
@@ -26,8 +21,8 @@ void windowProc::runCount()
 
 void windowProc::stopCount()
 {
+    emit lstWindowsInfoSignal(listWindowsInfo);
 }
-
 
 
 BOOL EnumWindowsProc(HWND hWnd, LPARAM lp)
@@ -38,15 +33,15 @@ BOOL EnumWindowsProc(HWND hWnd, LPARAM lp)
         GetWindowText(hWnd, Buff, 254);
         if (QString::fromWCharArray(Buff) != "")
         {
-            QString strInfo;
-            strInfo = QString::fromWCharArray(Buff) + "   ";
+            QStringList strInfo;
+            strInfo.append(QString::fromWCharArray(Buff));
             GetClassName(hWnd, NameOfClass, 254);
-            strInfo += QString::fromWCharArray(NameOfClass) + "   ";
-            if (hWnd == GetActiveWindow())
-                strInfo += "Focused";
+            strInfo.append(QString::fromWCharArray(NameOfClass));
+            if (hWnd == GetForegroundWindow())
+                strInfo.append("True");
             else
-                strInfo += "Unfocused";
-            //qDebug() << strInfo;
+                strInfo.append("False");
+            listWindowsInfo.append(strInfo);
         }
     }
     return true;

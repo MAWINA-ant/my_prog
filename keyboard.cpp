@@ -8,6 +8,7 @@ keyboard::keyboard(QObject *parent) : QObject(parent), countKeyPressed(0)
 
 void keyboard::runCount()
 {
+    resetCountKeyPressed();
     workFlag = true;
     int keyNumber;
     while(workFlag){
@@ -22,7 +23,6 @@ void keyboard::runCount()
 void keyboard::stopCount()
 {
     workFlag = false;
-    resetCountKeyPressed();
 }
 
 

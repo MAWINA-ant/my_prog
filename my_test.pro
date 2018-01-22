@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,11 +16,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     keyboard.cpp \
     mouse.cpp \
-    windowproc.cpp
+    windowproc.cpp \
+    mydatabase.cpp
 
 HEADERS  += mainwindow.h \
     keyboard.h \
     mouse.h \
-    windowproc.h
+    windowproc.h \
+    mydatabase.h
 
 FORMS    += mainwindow.ui

@@ -6,88 +6,78 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>877</width>
-    <height>409</height>
+    <width>379</width>
+    <height>544</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButtonChooseSession">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>10</y>
-      <width>80</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Выбор сессии</string>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBoxSessionInfo">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>40</y>
-      <width>821</width>
-      <height>301</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Информация о сессии</string>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="2">
-      <widget class="QLineEdit" name="lineEditKeyPressedCount"/>
-     </item>
-     <item row="0" column="0" rowspan="2">
-      <widget class="QTableWidget" name="tableWidget">
-       <column>
-        <property name="text">
-         <string>Название приложения</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Заголовок окна</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Флаг активности</string>
-        </property>
-       </column>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QLineEdit" name="lineEditRangeMouse"/>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="labelRangeMouse">
-       <property name="text">
-        <string>Перемещение мыши:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="labelKeyPressedCount">
-       <property name="text">
-        <string>Количество нажатых клавиш:</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="pushButtonChooseSession">
+      <property name="text">
+       <string>Выбор сессии</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QGroupBox" name="groupBoxSessionInfo">
+      <property name="title">
+       <string>Информация о сессии</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelRangeMouse">
+         <property name="text">
+          <string>Перемещение мыши:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEditRangeMouse"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelKeyPressedCount">
+         <property name="text">
+          <string>Количество нажатых клавиш:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="lineEditKeyPressedCount"/>
+       </item>
+       <item row="2" column="0" rowspan="2" colspan="2">
+        <widget class="QTableWidget" name="tableWidget">
+         <column>
+          <property name="text">
+           <string>Название приложения</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Заголовок окна</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Флаг активности</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>877</width>
+     <width>379</width>
      <height>20</height>
     </rect>
    </property>

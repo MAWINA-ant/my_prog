@@ -8,6 +8,7 @@ mouse::mouse(QObject *parent) : QObject(parent), mouseDistance(0)
 
 void mouse::runCount()
 {
+    resetMouseDistance();
     workFlag = true;
     while (workFlag)
     {
@@ -22,7 +23,6 @@ void mouse::runCount()
 void mouse::stopCount()
 {
     workFlag = false;
-    resetMouseDistance();
 }
 
 
