@@ -2,6 +2,7 @@
 #define KEYBOARD_H
 
 #include <QObject>
+#include <QList>
 
 class keyboard : public QObject
 {
@@ -15,6 +16,7 @@ public:
 private:
     long long countKeyPressed;
     bool workFlag;
+    QList<int> lstPressedKey;
 
 signals:
     void keyPressed();                      // если была нажата клавиша

@@ -91,13 +91,12 @@ void MainWindow::stopSessionSlot()
 void MainWindow::updateTableWidgetWindowsInfo(QStringList strLst)
 {
     ui->tableWidget->clear();
-    for (int k = 0; k < ui->tableWidget->rowCount(); k++)
+    for (int i = 0; i < (strLst.size() / 3); i++)
     {
-        ui->tableWidget->removeRow(k);
-    }
-    for (int i = 0; i < strLst.size() / 3; i++)
-    {
-        //ui->tableWidget->insertRow(i);
+
+        if (ui->tableWidget->rowCount() <= i)
+            ui->tableWidget->insertRow(i);
+
         for (int j = 0; j < 3; j++)
         {
             QTableWidgetItem *item = new QTableWidgetItem();

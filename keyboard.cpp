@@ -12,9 +12,11 @@ void keyboard::runCount()
     workFlag = true;
     int keyNumber;
     while(workFlag){
-        for (keyNumber = 1; keyNumber <= 254; keyNumber++)
+        for (keyNumber = 8; keyNumber <= 254; keyNumber++)
         {
-            if (GetAsyncKeyState(keyNumber)==-32767)
+            if (keyNumber == 16 || keyNumber == 17 || keyNumber == 18)
+                continue;
+            if (GetAsyncKeyState(keyNumber) == -32767)
                 countKeyPressed++;
         }
     }

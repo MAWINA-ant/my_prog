@@ -22,6 +22,7 @@ void windowProc::runCount()
 void windowProc::stopCount()
 {
     emit lstWindowsInfoSignal(listWindowsInfo);
+    listWindowsInfo.clear();
 }
 
 
